@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mini Campaign Manager
+
+A **Mini Campaign Manager** is a responsive web application built with **Next.js (SSR), TypeScript, TailwindCSS, and shadcn/ui**, allowing users to manage campaigns efficiently. The app demonstrates a clean dashboard-style interface with campaign listing, creation, and tracking functionalities. Optional backend integration is implemented using **NestJS/Express.js**.
+
+---
+
+## Table of Contents
+
+- [Features](#features)  
+- [Tech Stack](#tech-stack)  
+- [Screenshots](#screenshots)  
+- [Getting Started](#getting-started)  
+- [Project Structure](#project-structure)  
+- [Frontend (SSR)](#frontend-ssr)  
+- [Backend (Optional)](#backend-optional)  
+- [Future Improvements](#future-improvements)  
+- [Author](#author)  
+
+---
+
+## Features
+
+### Dashboard
+- Summary cards: Active Campaigns, Emails Sent, Replies, Meetings Booked  
+- Responsive chart using **Recharts**  
+- Sidebar navigation: Dashboard, Campaigns, Settings  
+
+### Campaign List
+- Table view showing campaign details: Name, Status, Sent, Replies, Created At  
+- "Create New Campaign" button opens a modal or navigates to campaign creation page  
+- View campaign details and increment `Sent` and `Replies` count  
+
+### Create Campaign
+- Form fields: Campaign Name, Type (Email / WhatsApp), Description  
+- Field validation using **React Hook Form + Zod**  
+- Save campaign data to **localStorage** or backend API  
+- Success toast/modal confirmation  
+
+### Backend Integration (Optional)
+- `GET /campaigns` → Returns static/dummy campaigns  
+- `POST /campaigns` → Accepts new campaign data and stores it in memory/JSON file  
+- Frontend communicates with API using **Axios** or **Fetch**  
+
+---
+
+## Tech Stack
+
+**Frontend**  
+- Next.js (SSR)  
+- TypeScript  
+- TailwindCSS  
+- shadcn/ui  
+- React Hook Form + Zod  
+- Recharts (Charts)  
+
+**Backend (Optional)**  
+- NestJS or Express.js  
+- Node.js  
+- In-memory or JSON file storage  
+
+---
+
+## Screenshots
+
+> Add your screenshots here  
+
+**Dashboard:**  
+![Dashboard](screenshots/dashboard.png)  
+
+**Campaign List:**  
+![Campaign List](screenshots/campaign-list.png)  
+
+**Create Campaign Form:**  
+![Create Campaign](screenshots/create-campaign.png)  
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js (>=18.x)  
+- npm or yarn  
 
+### Frontend Setup (Next.js SSR)
+1. Clone the repository:
 ```bash
-npm run dev
+git clone https://github.com/<your-username>/mini-campaign-manager.git
+cd mini-campaign-manager/frontend
+
+2. Install dependencies:
+```bash
+npm install
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+yarn install
