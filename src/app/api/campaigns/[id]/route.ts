@@ -4,9 +4,9 @@ import { dbConnect } from "@/lib/dbConnect";
 import Campaign from "@/models/Campaign";
 
 // GET campaign by ID
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, context: { params: { id: string } }) {
   await dbConnect();
-  const { id } = await params;
+  const { id } = await context.params;
   const campaign = await Campaign.findById(id);
   if (!campaign) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(campaign, { status: 200 });
@@ -18,9 +18,10 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
  * { action: "increment", field: "replies", amount: 1 }
  * { action: "set", field: "sent", value: 10 } // optional
  */
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, context: { params: { id: string } }) {
   await dbConnect();
-  const { id } = await params;
+  const { id } = await context.params;
+
   try {
     const body = await req.json();
     const { action, field } = body as { action: string; field: string };
@@ -32,7 +33,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
     let update: any = {};
     if (action === "increment") {
       const amount = Number(body.amount || 1);
-      update = { $inc: { [field]: amount } }; // atomic increment
+      update = { $inc: { [field]: amount } };
     } else if (action === "set") {
       const value = Number(body.value ?? 0);
       update = { $set: { [field]: value } };
