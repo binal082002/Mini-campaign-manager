@@ -1,15 +1,15 @@
 // src/app/api/campaigns/[id]/route.ts
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/lib/dbConnect";
 import Campaign from "@/models/Campaign";
-import { ObjectId } from "mongodb";
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+// GET campaign by ID
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   await dbConnect();
   const { id } = await params;
   const campaign = await Campaign.findById(id);
   if (!campaign) return NextResponse.json({ error: "Not found" }, { status: 404 });
-  return NextResponse.json(campaign);
+  return NextResponse.json(campaign, { status: 200 });
 }
 
 /**
@@ -18,7 +18,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
  * { action: "increment", field: "replies", amount: 1 }
  * { action: "set", field: "sent", value: 10 } // optional
  */
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
   await dbConnect();
   const { id } = await params;
   try {
@@ -32,8 +32,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     let update: any = {};
     if (action === "increment") {
       const amount = Number(body.amount || 1);
-      // use $inc for atomic increment (important for concurrency)
-      update = { $inc: { [field]: amount } };
+      update = { $inc: { [field]: amount } }; // atomic increment
     } else if (action === "set") {
       const value = Number(body.value ?? 0);
       update = { $set: { [field]: value } };
@@ -44,7 +43,7 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     const updated = await Campaign.findByIdAndUpdate(id, update, { new: true });
     if (!updated) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-    return NextResponse.json(updated);
+    return NextResponse.json(updated, { status: 200 });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || "Error" }, { status: 500 });
   }
