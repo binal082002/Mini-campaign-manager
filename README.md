@@ -58,7 +58,10 @@ A **Mini Campaign Manager** is a responsive web application built with **Next.js
 ![Dashboard](screenshots/dashboard.png)  
 
 **Campaign List:**  
-![Campaign List](screenshots/campaign-list.png)  
+![Campaign List](screenshots/campaign_list.png)  
+
+**Campaign details page:**  
+![Create Campaign](screenshots/campaign_details.png) 
 
 **Create Campaign Form:**  
-![Create Campaign](screenshots/create-campaign.png)  
+![Create Campaign](screenshots/campaign_form.png)   
