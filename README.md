@@ -2,7 +2,7 @@
 
 A **Mini Campaign Manager** is a responsive web application built with **Next.js (SSR), TypeScript, TailwindCSS, allowing users to manage campaigns efficiently. The app demonstrates a clean dashboard-style interface with campaign listing, creation, and tracking functionalities. Optional backend integration is implemented using **NestJS/Express.js**.
 
-**Project URL: https://mini-campaign-manager-pdmq1uy3x-binals-projects-b7beaa38.vercel.app/**
+**Project URL: https://mini-campaign-manager-azure.vercel.app/**
 ---
 
 ## Table of Contents
