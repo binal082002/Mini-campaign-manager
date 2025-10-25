@@ -2,6 +2,7 @@
 
 A **Mini Campaign Manager** is a responsive web application built with **Next.js (SSR), TypeScript, TailwindCSS, allowing users to manage campaigns efficiently. The app demonstrates a clean dashboard-style interface with campaign listing, creation, and tracking functionalities. Optional backend integration is implemented using **NestJS/Express.js**.
 
+**Project URL: https://mini-campaign-manager-pdmq1uy3x-binals-projects-b7beaa38.vercel.app/**
 ---
 
 ## Table of Contents
@@ -49,6 +50,23 @@ A **Mini Campaign Manager** is a responsive web application built with **Next.js
 - React Hook Form + Zod  
 - Recharts (Charts)  
 - MongoDB
+
+# How to Run
+
+## 1. Clone the Repository
+- git clone <your-repo-url>
+- cd mini-campaign-manager
+
+## 2. Install Dependencies
+- npm install
+
+## 3. Set Up Environment Variables
+- Create a .env.local file in the root folder.
+- Add your MongoDB connection string as MONGODB_URI
+
+## 4. Run the Development Server
+- npm run dev
+- Open http://localhost:3000 in the browser.
 
 ---
 
