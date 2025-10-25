@@ -16,10 +16,34 @@ interface Campaign {
 
 export default function CampaignsPage() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+  const [loading, setLoading] = useState(true); // ✅ New loading state
 
   useEffect(() => {
-    axios.get("/api/campaigns").then((res) => setCampaigns(res.data));
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/api/campaigns");
+        setCampaigns(res.data);
+      } catch (error) {
+        console.error("Error fetching campaigns:", error);
+      } finally {
+        setLoading(false); // ✅ Stop loading whether success or failure
+      }
+    };
+
+    fetchData();
   }, []);
+
+  // ✅ Show loading spinner until campaigns are fetched
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-gray-600">Loading campaigns...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col space-y-6 w-full px-4 md:px-8 lg:px-16">

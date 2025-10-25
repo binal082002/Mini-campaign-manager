@@ -31,14 +31,37 @@ const Card = ({ title, value }: { title: string; value: number }) => (
 
 export default function Dashboard() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+  const [loading, setLoading] = useState(true); // ✅ new loading state
 
   useEffect(() => {
-    axios.get("/api/campaigns").then((res) => setCampaigns(res.data));
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/api/campaigns");
+        setCampaigns(res.data);
+      } catch (err) {
+        console.error("Error fetching campaigns:", err);
+      } finally {
+        setLoading(false); // ✅ stop loading whether success or fail
+      }
+    };
+
+    fetchData();
   }, []);
+
+  if (loading) {
+    // ✅ Simple loading spinner (Tailwind)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-gray-600">Loading dashboard data...</p>
+        </div>
+      </div>
+    );
+  }
 
   // Only active campaigns
   const activeCampaigns = campaigns.filter((c) => c.status === "Active");
-  
   const totalSent = activeCampaigns.reduce((acc, c) => acc + (c.sent || 0), 0);
   const totalReplies = activeCampaigns.reduce((acc, c) => acc + (c.replies || 0), 0);
 
@@ -64,8 +87,8 @@ export default function Dashboard() {
       <div className="bg-white p-4 rounded-xl shadow-md">
         <h2 className="text-lg font-semibold mb-2">Active Campaign Performance</h2>
         {data.length > 0 ? (
-          <ResponsiveContainer width="100%" height={350}>
-            <LineChart data={data} margin={{ top: 20, right: 30, bottom: 20, left: 0 }}>
+          <ResponsiveContainer width="100%" height={400}>
+            <LineChart data={data} margin={{ top: 20, right: 30, bottom: 60, left: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" angle={-30} textAnchor="end" height={60} />
               <YAxis />
